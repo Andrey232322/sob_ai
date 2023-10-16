@@ -1,0 +1,27 @@
+version: '3.7'
+
+volumes:
+  my_volume:
+    driver: local
+
+services:
+  db:
+    image: mysql
+    container_name: db_app
+    ports:
+      - 8888:8000
+    volumes:
+      - my_volume:/var/lib/docker/volumes/my_volume/_data"
+    environment:
+      - MYSQL_ROOT_PASSWORD=33a
+      - MYSQL_ALLOW_EMPTY_PASSWORD=slq
+      - MYSQL_RANDOM_ROOT_PASSWORD=sql
+
+  app:
+    build:
+      context: .
+    container_name: fastapi_app
+    ports:
+      - 9999:8000
+    depends_on:
+      - db
